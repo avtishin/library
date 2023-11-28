@@ -22,7 +22,8 @@
   "scripts": {
     "build:mock": "node ../../scripts/generatePackageJson.mjs -p cloud-react -m index.js",
     "prebuild": "node ./scripts/prebuild.mjs && yarn --cwd='../cloud-core/' build",
-    "build": "rm -fr dist && gulp && mv dist/README.npm.md dist/README.md",
+    "copy": "cp ./README.npm.md dist/README.md && cp ./LICENSE ./dist/LICENSE && node ../../scripts/generatePackageJson.mjs -p cloud-react -m index.js",
+    "build": "rm -rf dist && gulp && tsup && yarn run copy",
     "postbuild": "node ./scripts/postbuild.mjs",
     "clear": "rm -rf node_modules dist tsconfig.tsbuildinfo"
   },
@@ -47,5 +48,8 @@
     "@polkadot/util": "^12.5.1",
     "@polkadot/util-crypto": "^12.5.1",
     "framer-motion": "^10.16.5"
+  },
+  "devDependencies": {
+    "tsup": "^8.0.1"
   }
 }
